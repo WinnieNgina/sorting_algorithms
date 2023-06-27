@@ -7,13 +7,11 @@
 void insertion_sort_list(listint_t **list)
 {
 	listint_t *current; /* Pointer to the current node */
-	/*listint_t *sorted;  Pointer to the sorted portion of the list */
 	listint_t *temp;    /* Temporary pointer for swapping nodes */
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		/*check if list is empty or contains one element*/
 		return;
-	/*sorted = *list;       Start with the first node as the sorted portion */
 	current = (*list)->next; /* Move to the next node */
 	/* Traverse the list */
 	while (current != NULL)
