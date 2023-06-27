@@ -5,32 +5,31 @@
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *tmp_head = *list;
-	int i = 0;
-	int value;
-	int index;
-	int j;
-	int key;
+	listint_t *slow, *fast, *node;
+	listint_t *temp = NULL;
 
-	if (tmp_head == NULL || tmp_head->next == NULL)
+	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
-	/*An empty list is just return*/
-
-	while (tmp_head->next != NULL)
+	/*An empty list or a list with one element is just return*/
+	while ((*list)->next != NULL)
 	{
-		tmp_head = tmp_head->next;
-		i++;
-	}
-	for(index = 0; index < i; index++)
-	{
-		key = tmp_head->next->n;
-		j = index - 1;
-		while(j >= 0 && key < tmp_head->n)
+		fast = (*list)->next;
+		/*We intialize fast one index ahead*/
+		node = fast->next;
+		slow = fast->prev;
+		while (slow != NULL && slow->n > fast->n)
+		/*We keep on iterating until we find the right position for the element*/
 		{
-			tmp_head->next->n = tmp_head->n;
-			j--;
+			temp->next = fast->next;
+			temp->prev = fast->prev;
+			fast->prev = slow->prev;
+			fast->next = temp->prev;
+			slow->prev = slow->next;
+			slow->next = temp->next;
+			slow->next->prev = fast->next;
+			fast->prev->next = slow->prev;
+			print_list(fast);
 		}
-		arr[ j+ 1] = key;
-		print_array(arr, i);
+		fast = node;
 	}
 }
