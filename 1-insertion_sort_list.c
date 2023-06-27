@@ -7,7 +7,7 @@ void insertion_sort_list(listint_t **list)
 {
 	listint_t *tmp_head = *list;
 	int i = 0;
-	int arr[10000];
+	int value;
 	int index;
 	int j;
 	int key;
@@ -17,19 +17,17 @@ void insertion_sort_list(listint_t **list)
 	/*An empty list is just return*/
 
 	while (tmp_head->next != NULL)
-	/*Copy the linked list values into the array*/
 	{
-		arr[i] = tmp_head->n;
 		tmp_head = tmp_head->next;
 		i++;
 	}
 	for(index = 0; index < i; index++)
 	{
-		key = arr[index];
+		key = tmp_head->next->n;
 		j = index - 1;
-		while(j >= 0 && key < arr[j])
+		while(j >= 0 && key < tmp_head->n)
 		{
-			arr[j + 1] = arr[j];
+			tmp_head->next->n = tmp_head->n;
 			j--;
 		}
 		arr[ j+ 1] = key;
