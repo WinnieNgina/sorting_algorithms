@@ -23,17 +23,24 @@ void insertion_sort_list(listint_t **list)
 		{
 			/* Swap the nodes */
 			if (temp->next != NULL)
+				/* ensure there is a node after the current node temp*/
 				temp->next->prev = temp->prev;
+			/*update the prev pointer of the next node.*/
 			temp->prev->next = temp->next;
+			/*update next pointer of the previous node.*/
 			temp->next = temp->prev;
+			/*update the next pointer of temp to point to the node before temp.*/
 			temp->prev = temp->next->prev;
+			/*update the prev of temp to point to the node before temp*/
 			temp->next->prev = temp;
-			/* Update the head pointer if the current node becomes the new head */
+			/*update the prev pointer of temp->next to point back to temp.*/
+
 			if (temp->prev != NULL)
 				temp->prev->next = temp;
 			else
 				*list = temp;
-			print_list(*list); /* Print the list after swapping nodes */
+			/* Update the head pointer if the current node becomes the new head */
+			print_list(*list);
 		}
 	}
 }
