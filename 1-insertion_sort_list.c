@@ -1,35 +1,43 @@
 #include "sort.h"
+
 /**
  * insertion_sort_list - sorts a doubly linked list of integers in ascending order using the Insertion sort
  * @list: pointer to the head node of list to be sorted
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *slow, *fast, *node;
-	listint_t *temp = NULL;
+	listint_t *current;
+	listint_t *sorted;
+	listint_t *temp;
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
-	/*An empty list or a list with one element is just return*/
-	while ((*list)->next != NULL)
+
+	sorted = *list;
+	current = sorted->next;
+
+	while (current != NULL)
 	{
-		fast = (*list)->next;
-		/*We intialize fast one index ahead*/
-		node = fast->next;
-		slow = fast->prev;
-		while (slow != NULL && slow->n > fast->n)
-		/*We keep on iterating until we find the right position for the element*/
+		temp = current;
+		current = current->next;
+
+		while (temp->prev != NULL && temp->n < temp->prev->n)
 		{
-			temp->next = fast->next;
-			temp->prev = fast->prev;
-			fast->prev = slow->prev;
-			fast->next = temp->prev;
-			slow->prev = slow->next;
-			slow->next = temp->next;
-			slow->next->prev = fast->next;
-			fast->prev->next = slow->prev;
-			print_list(fast);
+			/* Swap the nodes */
+			if (temp->next != NULL)
+				temp->next->prev = temp->prev;
+			temp->prev->next = temp->next;
+			temp->next = temp->prev;
+			temp->prev = temp->next->prev;
+			temp->next->prev = temp;
+
+			if (temp->prev != NULL)
+				temp->prev->next = temp;
+			else
+				*list = temp;
+
+			print_list(*list);
 		}
-		fast = node;
 	}
 }
+
